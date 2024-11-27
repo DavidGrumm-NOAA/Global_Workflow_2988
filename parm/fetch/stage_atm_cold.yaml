@@ -1,0 +1,19 @@
+untar:
+    tarball : "{{ ATARDIR }}/{{ cycle_YMDH }}/atm_cold.tar"
+    on_hpss: True
+    contents:
+        - gfs_ctrl.nc
+        {% for ftype in ["gfs_data", "sfc_data"] %}
+        {% for ntile in range(1, ntiles + 1) %}
+        - {{ ftype }}.tile{{ ntile }}.nc
+        {% endfor %} # ntile
+        {% endfor %} # ftype
+    destination: "{{ DATA }}"
+atmosphere_cold:
+    copy:
+        - ["{{ DATA }}/gfs_ctrl.nc", "{{ COMOUT_ATMOS_INPUT }}"]
+        {% for ftype in ["gfs_data", "sfc_data"] %}
+        {% for ntile in range(1, ntiles + 1) %}
+        - ["{{ DATA }}/{{ ftype }}.tile{{ ntile }}.nc", "{{ COMOUT_ATMOS_INPUT }}"]
+        {% endfor %} # ntile
+        {% endfor %} # ftype
