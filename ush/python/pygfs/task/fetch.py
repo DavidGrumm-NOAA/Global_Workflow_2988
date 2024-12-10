@@ -55,7 +55,7 @@ class Fetch(Task):
         fetch_parm = os.path.join(fetch_dict.PARMgfs, "fetch")
 
         parsed_fetch = parse_j2yaml(os.path.join(fetch_parm, fetch_yaml),
-	                            fetch_dict)
+                                    fetch_dict)
         return parsed_fetch
 
     @logit(logger)
@@ -65,7 +65,7 @@ class Fetch(Task):
 
         Parameters
         ----------
-        atardir_set: Dict[str, Any],         
+        atardir_set: Dict[str, Any],
             Dict defining set of tarballs to pull and where to put them.
 
         Return
@@ -73,18 +73,18 @@ class Fetch(Task):
         """
 
         if len(f_names) <= 0:     # Abort if no files
-            raise FileNotFoundError("FATAL ERROR: The tar ball has no files") # DG - add name
+            raise FileNotFoundError("FATAL ERROR: The tar ball has no files")
         f_names = atardir_set.untar.contents
         on_hpss = atardir_set.untar.on_hpss
         dest = atardir_set.untar.destination
-        # Select action whether no_hpss is True or not, and pull these data from
-        #    tape or locally and place where it needs to go
+        # Select action whether no_hpss is True or not, and pull these
+        #    data from tape or locally and place where it needs to go
         # DG - these need testing
-        if on_hpss is True: # htar all files in fnames
+        if on_hpss is True:  # htar all files in fnames
             htar_obj = Htar.Htar()
             htar_obj.cvf(dest, f_names)
 
-        else: # tar all files in fnames
+        else:  # tar all files in fnames
             with tarfile.open(dest, "w") as tar:
                 for filename in f_names:
                     tar.add(filename)
