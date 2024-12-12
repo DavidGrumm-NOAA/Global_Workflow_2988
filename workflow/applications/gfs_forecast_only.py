@@ -20,7 +20,7 @@ class GFSForecastOnlyAppConfig(AppConfig):
         Returns the config_files that are involved in the forecast-only app
         """
 
-        configs = ['stage_ic', 'fcst', 'arch', 'cleanup']
+        configs = ['fetch', 'stage_ic', 'fcst', 'arch', 'cleanup']
 
         if self.do_atm:
 
@@ -89,7 +89,11 @@ class GFSForecastOnlyAppConfig(AppConfig):
         This is the place where that order is set.
         """
 
-        tasks = ['stage_ic']
+        tasks = []
+        if self.do_fetch_hpss or self_fetch_local:
+            tasks += ['fetch']
+
+        tasks += ['stage_ic']
 
         if self.do_aero:
             aero_fcst_run = self.aero_fcst_run
