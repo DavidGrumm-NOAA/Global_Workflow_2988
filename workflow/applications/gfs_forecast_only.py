@@ -96,12 +96,15 @@ class GFSForecastOnlyAppConfig(AppConfig):
         Note that the order of the task names matters in the XML.
         This is the place where that order is set.
         """
-        tasks = []
-        if self.do_fetch_hpss or self_fetch_local:
-            tasks += ['fetch']
-        tasks += ['stage_ic']
-        
+
         options = self.run_options[self.run]
+
+        tasks = []
+
+        if options['fetch_hpss'] or options['fetch_local']:
+            tasks += ['fetch']
+
+        tasks += ['stage_ic']
 
         if options['do_aero_fcst'] and not options['exp_warm_start']:
             tasks += ['aerosol_init']
