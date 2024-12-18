@@ -18,12 +18,13 @@ class GFSTasks(Tasks):
     # Specific Tasks begin here
     def stage_ic(self):
 
-        deps = []
-        dep_dict = {
-            'type': 'task', 'name': f'fetch',
-        }
-        deps.append(rocoto.add_dependency(dep_dict))
-        dependencies = rocoto.create_dependency(dep=deps)
+        if self.options['fetch_hpss'] or self.options['fetch_local']:
+            deps = []
+            dep_dict = {
+                'type': 'task', 'name': f'fetch',
+            }
+            deps.append(rocoto.add_dependency(dep_dict))
+            dependencies = rocoto.create_dependency(dep=deps)
 
         cycledef = 'gdas_half' if self.run in ['gdas', 'enkfgdas'] else self.run
 

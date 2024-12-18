@@ -27,8 +27,13 @@ class GFSForecastOnlyAppConfig(AppConfig):
         """
         Returns the config_files that are involved in the forecast-only app
         """
-        configs = ['fetch', 'stage_ic', 'fcst', 'arch', 'cleanup']
+
+        configs = []
         options = self.run_options[run]
+        if options['fetch_hpss'] or options['fetch_local']:
+            configs += ['fetch']
+
+        configs += ['stage_ic', 'fcst', 'arch', 'cleanup']
 
         if options['do_atm']:
 

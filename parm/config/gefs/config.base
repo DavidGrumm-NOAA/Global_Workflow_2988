@@ -103,6 +103,7 @@ export ROTDIR="@COMROOT@/${PSLOT}"
 
 export ARCDIR="${NOSCRUB}/archive/${PSLOT}"
 export ATARDIR="@ATARDIR@"
+export FETCHDIR="@FETCHDIR@"  # DG adding 121724
 
 # Commonly defined parameters in JJOBS
 export envir=${envir:-"prod"}

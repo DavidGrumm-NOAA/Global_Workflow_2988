@@ -132,6 +132,7 @@ if [[ "${PDY}${cyc}" -ge "2019092100" && "${PDY}${cyc}" -le "2019110700" ]]; the
 fi
 export ARCDIR="${NOSCRUB}/archive/${PSLOT}"
 export ATARDIR="@ATARDIR@"
+export FETCHDIR="@FETCHDIR@"  # DG adding 121724
 
 # Commonly defined parameters in JJOBS
 export envir=${envir:-"prod"}
@@ -475,8 +476,8 @@ export FHMAX_FITS=132
 [[ "${FHMAX_FITS}" -gt "${FHMAX_GFS}" ]] && export FHMAX_FITS=${FHMAX_GFS}
 
 # Fetch options
-export DO_FETCH_HPSS="@DO_FETCH_HPSS@"   # pull from HPSS
-export DO_FETCH_LOCAL="@DO_FETCH_LOCAL@"   # pull from local
+export DO_FETCH_HPSS="NO"   # pull from HPSS
+export DO_FETCH_LOCAL="NO"   # pull from local
 if [[ ${DO_FETCH_HPSS} = "YES" ]] && [[ ${DO_FETCH_LOCAL} = "YES" ]]; then
    echo "Both HPSS and local fetch selected.  Please choose one or the other."
    exit 3
