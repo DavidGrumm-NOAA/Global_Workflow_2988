@@ -59,13 +59,13 @@ class Fetch(Task):
         return parsed_fetch
 
     @logit(logger)
-    def execute_pull_data(self, atardir_set: Dict[str, Any]) -> None:
+    def execute_pull_data(self, fetchdir_set: Dict[str, Any]) -> None:
         """Pull data from HPSS based on a yaml dictionary and store at the
            specified destination.
 
         Parameters
         ----------
-        atardir_set: Dict[str, Any],
+        fetchdir_set: Dict[str, Any],
             Dict defining set of tarballs to pull and where to put them.
 
         Return
@@ -74,9 +74,9 @@ class Fetch(Task):
 
         if len(f_names) <= 0:     # Abort if no files
             raise FileNotFoundError("FATAL ERROR: The tar ball has no files")
-        f_names = atardir_set.untar.contents
-        on_hpss = atardir_set.untar.on_hpss
-        dest = atardir_set.untar.destination
+        f_names = fetchdir_set.untar.contents
+        on_hpss = fetchdir_set.untar.on_hpss
+        dest = fetchdir_set.untar.destination
         # Select action whether no_hpss is True or not, and pull these
         #    data from tape or locally and place where it needs to go
         # DG - these need testing

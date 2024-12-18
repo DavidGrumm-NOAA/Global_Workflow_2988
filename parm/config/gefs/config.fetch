@@ -4,10 +4,9 @@
 
 echo "BEGIN: config.fetch"
 
+export FETCH_YAML_TMPL="${PARMgfs}/fetch/C48_cold.yaml.j2"
+
 # Get task specific resources
 source "${EXPDIR}/config.resources" fetch
-
-export ICSDIR="@ICSDIR@" # User provided ICSDIR; blank if not provided
-export BASE_IC="@BASE_IC@" # Platform home for staged ICs
 
 echo "END: config.fetch"

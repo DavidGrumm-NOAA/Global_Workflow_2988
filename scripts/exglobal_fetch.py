@@ -18,7 +18,7 @@ def main():
     fetch = Fetch(config)
 
     # Pull out all the configuration keys needed to run the fetch step
-    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'fetch_yaml', 'ATARDIR', 'ntiles']
+    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'fetch_yaml', 'FETCHDIR', 'ntiles']
 
     fetch_dict = AttrDict()
     for key in keys:
@@ -35,10 +35,10 @@ def main():
 
     # Determine which archives to retrieve from HPSS
     # Read the input YAML file to get the list of tarballs on tape
-    atardir_set = fetch.configure(fetch_dict)
+    fetchdir_set = fetch.configure(fetch_dict)
 
     # Pull the data from tape or locally and store the specified destination
-    fetch.execute_pull_data(atardir_set)
+    fetch.execute_pull_data(fetchdir_set)
 
 
 if __name__ == '__main__':
