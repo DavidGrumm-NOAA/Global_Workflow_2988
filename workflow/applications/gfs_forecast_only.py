@@ -30,7 +30,7 @@ class GFSForecastOnlyAppConfig(AppConfig):
 
         configs = []
         options = self.run_options[run]
-        if options['fetch_hpss'] or options['fetch_local']:
+        if options['do_fetch_hpss'] or options['do_fetch_local']:
             configs += ['fetch']
 
         configs += ['stage_ic', 'fcst', 'arch', 'cleanup']
@@ -106,7 +106,7 @@ class GFSForecastOnlyAppConfig(AppConfig):
 
         tasks = []
 
-        if options['fetch_hpss'] or options['fetch_local']:
+        if options['do_fetch_hpss'] or options['do_fetch_local']:
             tasks += ['fetch']
 
         tasks += ['stage_ic']

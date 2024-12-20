@@ -18,7 +18,8 @@ class GFSTasks(Tasks):
     # Specific Tasks begin here
     def stage_ic(self):
 
-        if self.options['fetch_hpss'] or self.options['fetch_local']:
+        dependencies = None
+        if self.options['do_fetch_hpss'] or self.options['do_fetch_local']:
             deps = []
             dep_dict = {
                 'type': 'task', 'name': f'fetch',
@@ -37,7 +38,8 @@ class GFSTasks(Tasks):
                      'command': f'{self.HOMEgfs}/jobs/rocoto/stage_ic.sh',
                      'job_name': f'{self.pslot}_{task_name}_@H',
                      'log': f'{self.rotdir}/logs/@Y@m@d@H/{task_name}.log',
-                     'maxtries': '&MAXTRIES;'
+                     'maxtries': '&MAXTRIES;',
+                     'dependency': dependencies
                      }
 
         task = rocoto.create_task(task_dict)

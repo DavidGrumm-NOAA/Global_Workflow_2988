@@ -5,7 +5,7 @@ from logging import getLogger
 from typing import Any, Dict, List
 
 from wxflow import (AttrDict, FileHandler, Hsi, Task,
-                    logit, parse_j2yaml)
+                    logit, parse_j2yaml, chdir)
 from wxflow import htar as Htar
 import tarfile
 
@@ -72,19 +72,24 @@ class Fetch(Task):
             None
         """
 
+        f_names = fetchdir_set.untar.contents
         if len(f_names) <= 0:     # Abort if no files
             raise FileNotFoundError("FATAL ERROR: The tar ball has no files")
-        f_names = fetchdir_set.untar.contents
+
         on_hpss = fetchdir_set.untar.on_hpss
         dest = fetchdir_set.untar.destination
+        tarball = fetchdir_set.untar.tarball
+
         # Select action whether no_hpss is True or not, and pull these
         #    data from tape or locally and place where it needs to go
         # DG - these need testing
-        if on_hpss is True:  # htar all files in fnames
-            htar_obj = Htar.Htar()
-            htar_obj.cvf(dest, f_names)
+        with chdir(dest):
+            if on_hpss is True:  # htar all files in fnames
+                htar_obj = Htar.Htar()
+                htar_obj.xvf(tarball, f_names)
 
-        else:  # tar all files in fnames
-            with tarfile.open(dest, "w") as tar:
-                for filename in f_names:
-                    tar.add(filename)
+            else:  # tar all files in fnames
+                pass  # TODO
+#                with tarfile.open(dest, "w") as tar:
+#                    for filename in f_names:
+#                        tar.add(filename)

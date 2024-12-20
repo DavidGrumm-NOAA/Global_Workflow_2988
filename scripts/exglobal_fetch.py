@@ -2,7 +2,7 @@
 
 import os
 
-from fetch import Fetch
+from pygfs.task.fetch import Fetch
 from wxflow import AttrDict, Logger, cast_strdict_as_dtypedict, logit
 
 # initialize root logger
@@ -18,7 +18,7 @@ def main():
     fetch = Fetch(config)
 
     # Pull out all the configuration keys needed to run the fetch step
-    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'fetch_yaml', 'FETCHDIR', 'ntiles']
+    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'fetch_yaml', 'FETCHDIR', 'ntiles', 'DATAROOT', 'cycle_YMDH']
 
     fetch_dict = AttrDict()
     for key in keys:
