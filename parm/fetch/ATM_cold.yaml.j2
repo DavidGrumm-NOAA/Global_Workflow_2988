@@ -1,3 +1,4 @@
+{% set cycle_YMDH = current_cycle | to_YMDH %}
 untar:
     tarball : "{{ FETCHDIR }}/{{ cycle_YMDH }}/atm_cold.tar"
     on_hpss: True
