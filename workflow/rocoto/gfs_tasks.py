@@ -22,7 +22,7 @@ class GFSTasks(Tasks):
         if self.options['do_fetch_hpss'] or self.options['do_fetch_local']:
             deps = []
             dep_dict = {
-                'type': 'task', 'name': f'fetch',
+                'type': 'task', 'name': f'{self.run}_fetch',
             }
             deps.append(rocoto.add_dependency(dep_dict))
             dependencies = rocoto.create_dependency(dep=deps)

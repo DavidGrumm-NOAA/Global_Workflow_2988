@@ -18,20 +18,13 @@ def main():
     fetch = Fetch(config)
 
     # Pull out all the configuration keys needed to run the fetch step
-    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'fetch_yaml', 'FETCHDIR', 'ntiles', 'DATAROOT']
+    keys = ['current_cycle', 'RUN', 'PDY', 'PARMgfs', 'PSLOT', 'ROTDIR', 'FETCH_YAML_DICT', 'FETCHDIR', 'ntiles', 'DATAROOT']
 
     fetch_dict = AttrDict()
     for key in keys:
         fetch_dict[key] = fetch.task_config.get(key)
         if fetch_dict[key] is None:
             print(f"Warning: key ({key}) not found in task_config!")
-
-    # Also import all COMOUT* directory and template variables
-    for key in fetch.task_config.keys():
-        if key.startswith("COMOUT_"):
-            fetch_dict[key] = fetch.task_config.get(key)
-            if fetch_dict[key] is None:
-                print(f"Warning: key ({key}) not found in task_config!")
 
     # Determine which archives to retrieve from HPSS
     # Read the input YAML file to get the list of tarballs on tape

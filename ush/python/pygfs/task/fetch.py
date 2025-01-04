@@ -51,7 +51,7 @@ class Fetch(Task):
         """
         self.hsi = Hsi()
 
-        fetch_yaml = fetch_dict.fetch_yaml
+        fetch_yaml = fetch_dict.FETCH_YAML_TMPL
         fetch_parm = os.path.join(fetch_dict.PARMgfs, "fetch")
 
         parsed_fetch = parse_j2yaml(os.path.join(fetch_parm, fetch_yaml),
@@ -87,7 +87,6 @@ class Fetch(Task):
             if on_hpss is True:  # htar all files in fnames
                 htar_obj = Htar.Htar()
                 htar_obj.xvf(tarball, f_names)
-
             else:  # tar all files in fnames
                 pass  # TODO
 #                with tarfile.open(dest, "w") as tar:
