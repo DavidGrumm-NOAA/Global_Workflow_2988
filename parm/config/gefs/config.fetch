@@ -4,7 +4,7 @@
 
 echo "BEGIN: config.fetch"
 
-export FETCH_YAML_TMPL="${PARMgfs}/fetch/C48_cold.yaml.j2"
+export FETCH_YAML_TMPL="${PARMgfs}/fetch/ATM_cold.yaml.j2"
 
 # Get task specific resources
 source "${EXPDIR}/config.resources" fetch
