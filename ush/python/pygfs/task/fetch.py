@@ -88,7 +88,7 @@ class Fetch(Task):
                 htar_obj = Htar.Htar()
                 htar_obj.xvf(tarball, f_names)
             else:  # tar all files in fnames
-                pass  # TODO
+                raise(NotImplementedError)
 #                with tarfile.open(dest, "w") as tar:
 #                    for filename in f_names:
 #                        tar.add(filename)
