@@ -2,12 +2,11 @@
 
 import os
 from logging import getLogger
-from typing import Any, Dict, List
+from typing import Any, Dict
 
-from wxflow import (AttrDict, FileHandler, Hsi, Task,
+from wxflow import (Hsi, Task, htar,
                     logit, parse_j2yaml, chdir)
-from wxflow import htar as Htar
-import tarfile
+# import tarfile
 
 
 logger = getLogger(__name__.split('.')[-1])
@@ -84,11 +83,23 @@ class Fetch(Task):
         #    data from tape or locally and place where it needs to go
         # DG - these need testing
         with chdir(dest):
+            logger.info(f"Changed working directory to {dest}")
             if on_hpss is True:  # htar all files in fnames
-                htar_obj = Htar.Htar()
+                htar_obj = htar.Htar()
                 htar_obj.xvf(tarball, f_names)
             else:  # tar all files in fnames
                 raise (NotImplementedError)
 #                with tarfile.open(dest, "w") as tar:
 #                    for filename in f_names:
 #                        tar.add(filename)
+            # Verify all data files were extracted
+            missing_files = []
+            for f in f_names:
+                if not os.path.exists(f):
+                    missing_files.append(f)
+            if len(missing_files) > 0:
+                message = "Failed to extract all required files.  Missing files:\n"
+                for f in missing_files:
+                    message += f"{f}\n"
+
+                raise FileNotFoundError(message)
