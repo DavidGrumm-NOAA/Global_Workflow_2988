@@ -1,12 +1,1 @@
-#! /usr/bin/env bash
-
-########## config.fetch ##########
-
-echo "BEGIN: config.fetch"
-
-export FETCH_YAML_TMPL="${PARMgfs}/fetch/ATM_cold.yaml.j2"
-
-# Get task specific resources
-source "${EXPDIR}/config.resources" fetch
-
-echo "END: config.fetch"
+../gfs/config.fetch
