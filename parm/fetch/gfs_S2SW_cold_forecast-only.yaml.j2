@@ -12,8 +12,8 @@
 {% set ice_dir = RUN + "." ~ cycle_YMD ~ "/" ~ cycle_HH ~ "/model/ice/restart" %}
 {% set p_ocean_dir = "gdas." ~ p_cycle_YMD ~ "/" ~ p_cycle_HH ~ "/model/ocean/restart" %}
 {% set p_ice_dir = "gdas." ~ p_cycle_YMD ~ "/" ~ p_cycle_HH ~ "/model/ice/restart" %}
-{% set p_wave_dir = "gdas." ~ p_cycle_YMD ~ "/" ~ cycle_HH ~ "/model/wave/restart" %}
-{% set restart_prefix = cycle_YMD ~ "." ~ cycle_HH %}
+{% set p_wave_dir = "gdas." ~ p_cycle_YMD ~ "/" ~ p_cycle_HH ~ "/model/wave/restart" %}
+{% set restart_prefix = cycle_YMD ~ "." ~ cycle_HH ~ "0000" %}
 untar:
     tarball : "{{ FETCHDIR }}/{{ cycle_YMDH }}/s2sw_cold.tar"
     on_hpss: True
@@ -29,7 +29,6 @@ untar:
         - {{ocean_dir}}/{{restart_prefix}}.MOM.res.nc
         - {{p_ocean_dir}}/{{restart_prefix}}.MOM.res.nc
         # Ice
-        - {{ice_dir}}/cice5_model_{{
         - {{ice_dir}}/{{restart_prefix}}.cice_model.res.nc
         - {{p_ice_dir}}/{{restart_prefix}}.cice_model.res.nc
         # Wave
