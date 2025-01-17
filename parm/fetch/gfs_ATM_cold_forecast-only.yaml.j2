@@ -2,7 +2,7 @@
 {% set cycle_YMD = current_cycle | to_YMD %}
 {% set cycle_HH = current_cycle | strftime("%H") %}
 {% set atm_dir = RUN + "." ~ cycle_YMD ~ "/" ~ cycle_HH ~ "/model/atmos/input" %}
-untar:
+target:
     tarball : "{{ FETCHDIR }}/{{ cycle_YMDH }}/atm_cold.tar"
     on_hpss: True
     contents:

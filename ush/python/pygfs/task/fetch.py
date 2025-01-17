@@ -32,7 +32,6 @@ class Fetch(Task):
         None
         """
         super().__init__(config)
-        # Perhaps add other stuff to self.
 
     @logit(logger)
     def configure(self, fetch_dict: Dict[str, Any]):
@@ -71,13 +70,13 @@ class Fetch(Task):
             None
         """
 
-        f_names = fetchdir_set.untar.contents
+        f_names = fetchdir_set.target.contents
         if len(f_names) <= 0:     # Abort if no files
             raise FileNotFoundError("FATAL ERROR: The tar ball has no files")
 
-        on_hpss = fetchdir_set.untar.on_hpss
-        dest = fetchdir_set.untar.destination
-        tarball = fetchdir_set.untar.tarball
+        on_hpss = fetchdir_set.target.on_hpss
+        dest = fetchdir_set.target.destination
+        tarball = fetchdir_set.targettarball
 
         # Select action whether no_hpss is True or not, and pull these
         #    data from tape or locally and place where it needs to go
@@ -88,7 +87,8 @@ class Fetch(Task):
                 htar_obj = htar.Htar()
                 htar_obj.xvf(tarball, f_names)
             else:  # tar all files in fnames
-                raise (NotImplementedError)
+                raise NotImplementedError("The fetch job does not yet support pulling from local archives")
+
 #                with tarfile.open(dest, "w") as tar:
 #                    for filename in f_names:
 #                        tar.add(filename)
