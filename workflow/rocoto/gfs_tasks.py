@@ -16,6 +16,26 @@ class GFSTasks(Tasks):
             raise TypeError(f'{task_name} must be part of the "enkfgdas" cycle and not {run}')
 
     # Specific Tasks begin here
+    def fetch(self):
+
+        cycledef = 'gdas_half' if self.run in ['gdas', 'enkfgdas'] else self.run
+
+        resources = self.get_resource('fetch')
+        task_name = f'{self.run}_fetch'
+        task_dict = {'task_name': task_name,
+                     'resources': resources,
+                     'envars': self.envars,
+                     'cycledef': cycledef,
+                     'command': f'{self.HOMEgfs}/jobs/rocoto/fetch.sh',
+                     'job_name': f'{self.pslot}_{task_name}_@H',
+                     'log': f'{self.rotdir}/logs/@Y@m@d@H/{task_name}.log',
+                     'maxtries': '&MAXTRIES;'
+                     }
+
+        task = rocoto.create_task(task_dict)
+
+        return task
+
     def stage_ic(self):
 
         dependencies = None
@@ -40,26 +60,6 @@ class GFSTasks(Tasks):
                      'log': f'{self.rotdir}/logs/@Y@m@d@H/{task_name}.log',
                      'maxtries': '&MAXTRIES;',
                      'dependency': dependencies
-                     }
-
-        task = rocoto.create_task(task_dict)
-
-        return task
-
-    def fetch(self):
-
-        cycledef = 'gdas_half' if self.run in ['gdas', 'enkfgdas'] else self.run
-
-        resources = self.get_resource('fetch')
-        task_name = f'{self.run}_fetch'
-        task_dict = {'task_name': task_name,
-                     'resources': resources,
-                     'envars': self.envars,
-                     'cycledef': cycledef,
-                     'command': f'{self.HOMEgfs}/jobs/rocoto/fetch.sh',
-                     'job_name': f'{self.pslot}_{task_name}_@H',
-                     'log': f'{self.rotdir}/logs/@Y@m@d@H/{task_name}.log',
-                     'maxtries': '&MAXTRIES;'
                      }
 
         task = rocoto.create_task(task_dict)
