@@ -28,5 +28,3 @@ DO_TRACKER: 'NO'
 DO_GENESIS: 'NO'
 DO_METP: 'NO'
 SUPPORTED_RESOLUTIONS: ['C48', 'C96', 'C384'] # TODO: Test and support all cubed-sphere resolutions.
-
-
